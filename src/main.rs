@@ -16,7 +16,7 @@ fn f(arr: &Array1<f64>) -> f64 {
 }
 
 fn main() {
-    let iters = 100;
+    let iters = 200;
     let size = 3;
     let dim = 2;
     let limit = dim * 3;
