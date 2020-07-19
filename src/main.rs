@@ -6,6 +6,7 @@ use bees::FoodResources;
 use func::Func;
 use ndarray::Array1;
 use ndarray_rand::rand_distr::Uniform;
+use prettytable::{cell, format::consts as formats, row, table};
 
 fn f(arr: &Array1<f64>) -> f64 {
     let x = arr[0];
@@ -15,12 +16,24 @@ fn f(arr: &Array1<f64>) -> f64 {
 }
 
 fn main() {
-    let iters = 3;
+    let iters = 100;
     let size = 3;
     let dim = 2;
     let limit = dim * 3;
-    let distribution = Uniform::new(-5.0, 5.0);
+    let distribution = Uniform::new(-10.0, 10.0);
     let func = Func::new(f);
+
+    let mut table = table! {
+        ["# iteraciones", iters],
+        ["Dimensión", dim],
+        ["SN", size],
+        ["Limit", limit],
+        ["Distr", format!("{:?}", (-10.0, 10.0))]
+    };
+
+    table.set_titles(row!["Parámetro", "Valor"]);
+    table.set_format(*formats::FORMAT_NO_LINESEP_WITH_TITLE);
+    println!("{}", table);
 
     let mut resources = FoodResources::new(func, size, dim, limit, distribution);
 
